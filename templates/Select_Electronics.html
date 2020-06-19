@@ -1,0 +1,138 @@
+<!--Html page to select the electronic items and seller -->
+
+{% extends 'base.html' %}
+{% block body_block %}
+{% load render_table from django_tables2 %}
+
+{% load static %}
+<!--<!doctype html>-->
+<html>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<head>
+    <p><b> SELECT THE ITEM YOU WANT TO BUY</b></p>
+</head>
+<body id="body">
+<div class="col-xs-6" id="category_div" data-electronics-url="{% url 'ajax_load_electronics' %}">
+    <select class="form-control" name="select1" id="category" onchange="load_electronics()">
+        {%for r in nam %}
+        <option value={{r.id}}>{{r.item_name}}</option>
+        {%endfor%}
+    </select>
+</div>
+
+<div class="col-xs-6">
+    <select class="form-control" name="select2" id="electronics" data-sellers-url="{% url 'ajax_load_seller' %}" onchange="load_seller()">
+        {% for r in nex %}
+        <option value>--------</option>
+        <option value={{r.id}}>{{r.specification }}</option>
+
+        {%endfor%}
+    </select>
+</div>
+
+<div class="table" id="sellercategory_div">
+
+<table style="width:100%" name="select3" id="sellercategory" >
+
+<br></br>
+    <br></br>
+
+    <tr>
+        <th>SR NO</th>
+        <th>SPECIFICATIONS</th>
+        <th>NAME</th>
+        <th>ADDRESS</th>
+        <th>EMAIL ID</th>
+        <th>PRICE</th>
+        <th>SELECT</th>
+    </tr>
+
+    {% for z in sell %}
+    <tr>
+        <td>{{ z.srno }}</td>
+        <td>{{z.model_seller}}</td>
+        <td>{{z.name}}</td>
+        <td>{{z.address }}</td>
+        <td>{{z.email_id }}</td>
+        <td>{{z.price }}</td>
+        <th><button id="{{z.srno}}" name="t" onclick="collectdata(this);">BUY</button></th>
+    </tr>
+    {%endfor%}
+</table>
+</div>
+
+
+</body>
+
+
+{% block javascript %}
+
+
+<script>
+// Defining a function to call when
+function load_seller() {      //defining of function
+
+//instance of category select html element
+var $select3 = document.getElementById("electronics");
+var url = $("#electronics").attr("data-sellers-url");
+console.log($("#select3").value);
+console.log(url);
+$.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url request
+        data: {
+          'model_seller_id': $select3.value       // add the seller id to the GET parameters
+        },
+        success: function (data) {   // 'data' is the return of the 'load_seller' view function
+          $("#sellercategory").html(data);  // replace the contents of the seller input with the data that came from the server
+        },
+        failure: function(errMsg) {
+            alert(errMsg);       //message displayed when error occured
+        }
+      });
+}
+
+
+// Defining a function to call when
+function load_electronics() {
+
+//instance of category select html element
+var $select1 = document.getElementById("category");
+var url = $("#category_div").attr("data-electronics-url");
+console.log($select1.value);
+$.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url request
+        data: {
+          'name_type_id': $select1.value       // add the name id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_electronics` view function
+          $("#electronics").html(data);  // replace the contents of the electronics input with the data that came from the server
+        },
+        failure: function(errMsg) {
+            alert(errMsg);  //message displayed when error occured
+        }
+      });
+}
+// Defining a function to call when
+function collectdata(t) {
+//instance of category select html element
+url = 'http://127.0.0.1:8000/ajax/load_list' ;
+$.ajax({
+        type: "GET", //type of method used
+        url: url,     // set the url request
+        data: {
+            'Seller_id': $(t).attr('id')   // add the seller id to the GET parameters
+        },
+        success: function(result) {  // 'data' is the return of the'load_list' view function
+            $("#body").html(result);   // replace the contents of the seller details input with the data that came from the server
+        },
+        error: function(result) {
+            alert('error');   //message displayed when error occured
+        }
+    });
+};
+</script>
+{% endblock %}
+</html>
+
+
+{% endblock %}

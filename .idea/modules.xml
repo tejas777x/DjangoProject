@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../ecomm/.idea/ecomm.iml" filepath="$PROJECT_DIR$/../ecomm/.idea/ecomm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hex.iml" filepath="$PROJECT_DIR$/.idea/hex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mysite/.idea/mysite.iml" filepath="$PROJECT_DIR$/../mysite/.idea/mysite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../PycharmProjects/selenium_test/.idea/selenium_test.iml" filepath="$PROJECT_DIR$/../PycharmProjects/selenium_test/.idea/selenium_test.iml" />
+    </modules>
+  </component>
+</project>

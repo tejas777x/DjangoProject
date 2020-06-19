@@ -1,0 +1,9 @@
+<!--html page for drop down box-->
+<div class="col-xs-6">
+    <select class="form-control" name="select2" id="electronics">
+        {% for r in nex %}
+        <option value={{r.id}}>{{r.specification }}</option>
+
+        {%endfor%}
+    </select>
+</div>

@@ -1,0 +1,26 @@
+
+<!--Table to display the details of seller related to the selected electronic device-->
+
+<table style="width:100%" name="select3" id="sellercategory" >
+    <tr>
+        <th>SR NO</th>
+        <th>SPECIFICATIONS</th>
+        <th>NAME</th>
+        <th>ADDRESS</th>
+        <th>EMAIL ID</th>
+        <th>PRICE</th>
+        <th>SELECT</th>
+    </tr>
+
+    {% for z in sell %}
+    <tr>
+        <td>{{ z.srno }}</td>
+        <td>{{z.model_seller}}</td>
+        <td>{{z.name}}</td>
+        <td>{{z.address }}</td>
+        <td>{{z.email_id }}</td>
+        <td>{{z.price }}</td>
+        <th><button id="{{z.srno}}" name="t" onclick="collectdata(this);">BUY</button></th>
+    </tr>
+    {%endfor%}
+</table>

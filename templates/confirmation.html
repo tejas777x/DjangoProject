@@ -1,0 +1,60 @@
+
+
+<!--Simple htlm page to print the user, product and seller details-->
+
+<!doctype html>
+<html>
+<body id="hey">
+ <h2><b>USER DETAILS</b></h2>
+
+<h2>USER NAME : {{user.username}}</h2>
+ <h2>USER EMAIL ID : {{user.email}}</h2>
+ <h2>USER ADDRESS : {{w}}</h2>
+<h2>USER MOBILE NUMBER : {{c}}</h2>
+
+<h2><b>PRODUCT DETAILS</b></h2>
+ {% for z in list %}
+<h2>PRODUCT DETAILS : {{z.model_seller}}</h2>
+ <br></br>
+
+<h2><b>SELLER DETAILS</b></h2>
+
+<h2>SELLER NAME : {{z.name}}</h2>
+<h2>SELLER ADDRESS : {{z.address}}</h2>
+<h2>SELLER EMAIL ID : {{z.email_id}}</h2>
+<h2>SELLER PRICE : {{z.price}}</h2>
+ <br></br>
+
+<h2><b>TOTAL PRICE:{{z.price}}</b></h2>
+  <br></br>
+ <button id="{{z.name}}" name="r" class="btn btn-primary btn-lg active" aria-pressed="true" onclick="collectmail(this);">CONFIRM</button>
+ {%endfor%}
+<a href="{% url 'database' %}" class="btn btn-primary btn-lg active" name ="y" role="button" aria-pressed="true">BACK</a>
+</body>
+</html>
+
+
+{% block javascript %}
+
+<script>
+// Defining a function to call when
+function collectmail(t) {
+//instance of category select html element
+url = 'http://127.0.0.1:8000/ajax/subscribe' ;
+$.ajax({
+        type: "GET",  //type of method used
+        url: url,    // set the url request
+        data: {
+            'Seller_id': $(t).attr('id')  // add the seller id to the GET parameters
+        },
+        success: function(result) {  // 'data' is the return of the'subscribe' view function
+         $("#body").html(result);    // replace the contents of the user details input with the data that came from the server
+
+        },
+        error: function(result) {
+            alert('error');  //message displayed when error occured
+        }
+    });
+};
+ </script>
+{% endblock %}
